@@ -168,3 +168,7 @@ can show the dashboard. In the app's settings, turn **Use WebView** on and set t
 - [Inter Tight](https://github.com/rsms/inter) typeface, SIL Open Font License 1.1 (`web/vendor/fonts/OFL.txt`).
 - [Meteocons](https://github.com/basmilius/weather-icons) weather icons by Bas Milius, MIT License
   (`web/vendor/icons/LICENSE`).
+
+## License
+
+[MIT](LICENSE). The bundled font and icons keep their own licenses, listed under Credits.
