@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07080a">
+  <title>Immich Dashboard</title>
+  <!-- Everything is same-origin: the ImmichFrame Android app reloads the page on any failed request. -->
+  <link rel="stylesheet" href="vendor/fonts.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-layout="ambient">
+  <div id="ambient"><div class="amb"></div><div class="amb"></div></div>
+
+  <div id="stage">
+    <div class="slide"><div class="fill"></div><img class="photo" alt=""></div>
+    <div class="slide"><div class="fill"></div><img class="photo" alt=""></div>
+  </div>
+  <div id="scrim"></div>
+
+  <!-- Layout slots; which ones are used (and what goes in them) is defined per layout in config.js -->
+  <div class="slot" id="slot-tl" hidden></div>
+  <div class="slot" id="slot-tr" hidden></div>
+  <div class="slot" id="slot-bl" hidden></div>
+  <div class="slot" id="slot-br" hidden></div>
+  <div class="slot" id="slot-photo" hidden></div>
+  <div class="slot" id="slot-panel" hidden></div>
+  <div class="slot" id="slot-hero" hidden></div>
+  <div class="slot" id="slot-card" hidden></div>
+  <div class="slot" id="slot-bottom" hidden></div>
+  <div class="slot" id="slot-center" hidden></div>
+
+  <div id="pool" hidden>
+    <section class="w w-clock" data-w="clock"></section>
+    <section class="w w-alerts empty" data-w="alerts"></section>
+    <section class="w w-now" data-w="now"></section>
+    <section class="w w-nowMini" data-w="nowMini"></section>
+    <section class="w w-headline" data-w="headline"></section>
+    <section class="w w-hourly card" data-w="hourly"></section>
+    <section class="w w-daily card" data-w="daily"></section>
+    <section class="w w-stats" data-w="stats"></section>
+    <section class="w w-caption" data-w="caption"></section>
+    <section class="w w-photo" data-w="photo"></section>
+  </div>
+
+  <nav id="dock"></nav>
+  <div id="toast" role="status"></div>
+  <aside id="editor" aria-label="Customize"></aside>
+
+  <script type="module" src="app.js"></script>
+  <script>
+    // Old browsers (e.g. a stock Frameo WebView) can't run the app; say so rather than showing black.
+    setTimeout(function () {
+      if (window.dashboardStarted) return;
+      var v = /Chrome\/(\d+)/.exec(navigator.userAgent);
+      document.body.innerHTML = '<p style="position:fixed;inset:0;margin:0;display:flex;align-items:center;justify-content:center;' +
+        'padding:10%;text-align:center;font:24px sans-serif;color:#ddd;background:#07080a">This screen\'s web engine' +
+        (v ? ' (Chrome ' + v[1] + ')' : '') + ' is too old for the dashboard. It needs Chrome / Android System WebView 106 or newer.</p>';
+    }, 10000);
+  </script>
+</body>
+</html>

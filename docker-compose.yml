@@ -1,0 +1,32 @@
+name: immich-dashboard
+# All settings live in .env (copy .env.example); docker compose reads it automatically.
+services:
+  dashboard:
+    container_name: immich-dashboard
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    ports:
+      - "${DASHBOARD_PORT:-8090}:80"
+    environment:
+      IMMICH_URL: ${IMMICH_URL:?Set IMMICH_URL in .env}
+      IMMICH_API_KEY: ${IMMICH_API_KEY:?Set IMMICH_API_KEY in .env}
+      IMMICH_TLS_VERIFY: ${IMMICH_TLS_VERIFY:-on}
+      NGINX_ENVSUBST_FILTER: "^IMMICH_"
+      TZ: ${TZ:-}
+      DASHBOARD_LATITUDE: ${DASHBOARD_LATITUDE:-}
+      DASHBOARD_LONGITUDE: ${DASHBOARD_LONGITUDE:-}
+      DASHBOARD_LOCATION_NAME: ${DASHBOARD_LOCATION_NAME:-}
+      DASHBOARD_UNITS: ${DASHBOARD_UNITS:-metric}
+      DASHBOARD_ALBUM_ID: ${DASHBOARD_ALBUM_ID:-}
+      DASHBOARD_NICKNAMES: ${DASHBOARD_NICKNAMES:-}
+      DASHBOARD_PEOPLE_FIRST: ${DASHBOARD_PEOPLE_FIRST:-}
+      DASHBOARD_NAME_TITLES: ${DASHBOARD_NAME_TITLES:-}
+      DASHBOARD_SCHEDULE: ${DASHBOARD_SCHEDULE:-}
+    volumes:
+      - ./web:/usr/share/nginx/html:ro
+      - ./nginx.conf.template:/etc/nginx/templates/default.conf.template:ro
+      - ./docker-entrypoint.d/40-dashboard-config.sh:/docker-entrypoint.d/40-dashboard-config.sh:ro
+      - thumbcache:/var/cache/nginx/immich
+
+volumes:
+  thumbcache:
